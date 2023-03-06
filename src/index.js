@@ -1,112 +1,109 @@
 import React from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Configuration, OpenAIApi } from "openai";
 import "./index.css";
 
-class Message extends React.Component {
-  render() {
-    var messageText = [];
+const Message = (props) => {
+  var messageText = [];
 
-    this.props.messages.slice().reverse().forEach((message) => {
+  props.messages
+    .slice()
+    .reverse()
+    .forEach((message) => {
       if (message.role !== "system") {
         messageText.push(<li>{message.role + ": " + message.content}</li>);
       }
     });
 
-    return (
-      <ul>
-        {messageText}
-      </ul>
-    );
-  }
-}
+  return <ul>{messageText}</ul>;
+};
 
-class SendText extends React.Component {
-  render() {
-    return (
+const SendText = (props) => {
+  return (
     <div>
-      <input type="text" value={this.props.inputValue} onChange={(e) => this.props.onChange(e)} size="50"></input>
-      <button className="send-btn" 
-        onClick={() => this.props.onClickSend()}>送信</button>
-      <button className="reset-btn" 
-        onClick={() => this.props.onClickReset()}>リセット</button>
+      <input
+        type="text"
+        value={props.inputValue}
+        onChange={(e) => props.onChange(e)}
+        size="50"
+      ></input>
+      <button className="send-btn" onClick={() => props.onClickSend()}>
+        送信
+      </button>
+      <button className="reset-btn" onClick={() => props.onClickReset()}>
+        リセット
+      </button>
     </div>
-    );
-  }
-}
+  );
+};
 
-class MessageArea extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [{"role": "system","content": "You are a helpful assistant."}],
-      inputValue: "",
-    }
-  }
+const MessageArea = () => {
+  const [messages, setMessages] = useState([
+    {
+      role: "system",
+      content: "You are a helpful assistant.",
+    },
+  ]);
+  const [inputValue, setInputValue] = useState("");
 
-  setMessages() {
-    var messages = this.state.messages.slice();
+  const sendMessages = () => {
     const configuration = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
     });
     const openai = new OpenAIApi(configuration);
 
-    if (this.state.inputValue !== "") {
-      messages.push({"role": "user", "content": this.state.inputValue});
-      this.setState({messages: messages});
+    if (inputValue !== "") {
+      var tmpMessages = messages.slice();
+      tmpMessages.push({ role: "user", content: inputValue });
+      setMessages(tmpMessages);
       (async () => {
         const completion = await openai.createChatCompletion({
           model: "gpt-3.5-turbo",
-          messages: messages,
+          messages: tmpMessages,
         });
-        messages.push(completion.data.choices[0].message);
-        this.setState({messages: messages, inputValue: ""});
+        setMessages([...tmpMessages, completion.data.choices[0].message]);
+        setInputValue("");
       })();
     }
-  }
+  };
 
-  resetMessages() {
-    var messages = [{"role": "system","content": "You are a helpful assistant."}];
-    this.setState({messages: messages});
-  }
+  const resetMessages = () => {
+    var defaultMessage = [
+      { role: "system", content: "You are a helpful assistant." },
+    ];
+    setMessages(defaultMessage);
+  };
 
-  handleChange(event) {
-    this.setState({inputValue: event.target.value});
-  }
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
-  render() {
-    return (
-      <div>
-        <SendText 
-          messages={this.state.messages}
-          inputValue={this.state.inputValue}
-          onClickSend={() => {
-              this.setMessages();
-          }}
-          onClickReset={() => this.resetMessages()}  
-          onChange={(e) => this.handleChange(e)}
-        />
-        <Message messages={this.state.messages}/>
+  return (
+    <div>
+      <SendText
+        messages={messages}
+        inputValue={inputValue}
+        onClickSend={() => {
+          sendMessages();
+        }}
+        onClickReset={() => resetMessages()}
+        onChange={(e) => handleChange(e)}
+      />
+      <Message messages={messages} />
+    </div>
+  );
+};
+
+const Chat = () => {
+  return (
+    <div className="chat">
+      <div className="chat-message-area">
+        <MessageArea />
       </div>
-    );
-  }
-}
-
-class Chat extends React.Component {
-  render() {
-    return (
-      <div className="chat">
-        <div className="chat-message-area">
-          <MessageArea />
-        </div>
-        <div className="chat-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 // ========================================
 
