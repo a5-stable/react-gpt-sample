@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 import Message from "./Message";
 import SendText from "./SendText";
 
-const MessageArea = () => {
+const MessageArea = (props) => {
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -11,7 +11,6 @@ const MessageArea = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const configuration = new Configuration({
     apiKey: "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",
@@ -46,31 +45,19 @@ const MessageArea = () => {
   };
 
   const switchMode = () => {
-    const isDark = isDarkMode;
-    setIsDarkMode(!isDark);
-  }
-
-  const darkModeStyle = {
-    backgroundColor: "black",
-    color: "white",
-  }
-
-  const lightModeStyle = {
-    backgroundColor: "white",
-    color: "black",
+    const isDark = props.isDarkMode;
+    props.setIsDarkMode(!isDark);
   }
 
   return (
-    <div
-      style={isDarkMode ? darkModeStyle : lightModeStyle}
-    >
+    <div>
       <label>
         <input
           type="checkbox"
-          checked={isDarkMode}
+          checked={props.isDarkMode}
           onChange={switchMode}
         />
-        {isDarkMode ? "ライトモードに切り替える" : "ダークモードに切り替える"}
+        {props.isDarkMode ? "ライトモードに切り替える" : "ダークモードに切り替える"}
       </label>
       <SendText
         messages={messages}
