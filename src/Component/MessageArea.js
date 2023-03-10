@@ -11,9 +11,10 @@ const MessageArea = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: "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",
   });
   const openai = new OpenAIApi(configuration);
 
@@ -44,8 +45,33 @@ const MessageArea = () => {
     setInputValue(event.target.value);
   };
 
+  const switchMode = () => {
+    const isDark = isDarkMode;
+    setIsDarkMode(!isDark);
+  }
+
+  const darkModeStyle = {
+    backgroundColor: "black",
+    color: "white",
+  }
+
+  const lightModeStyle = {
+    backgroundColor: "white",
+    color: "black",
+  }
+
   return (
-    <div>
+    <div
+      style={isDarkMode ? darkModeStyle : lightModeStyle}
+    >
+      <label>
+        <input
+          type="checkbox"
+          checked={isDarkMode}
+          onChange={switchMode}
+        />
+        {isDarkMode ? "ライトモードに切り替える" : "ダークモードに切り替える"}
+      </label>
       <SendText
         messages={messages}
         inputValue={inputValue}
