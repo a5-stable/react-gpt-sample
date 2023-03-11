@@ -13,7 +13,7 @@ const MessageArea = (props) => {
   const [inputValue, setInputValue] = useState("");
 
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const openai = new OpenAIApi(configuration);
 
