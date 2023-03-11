@@ -13,7 +13,7 @@ const MessageArea = (props) => {
   const [inputValue, setInputValue] = useState("");
 
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: process.env.OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);
 
@@ -47,7 +47,7 @@ const MessageArea = (props) => {
   const switchMode = () => {
     const isDark = props.isDarkMode;
     props.setIsDarkMode(!isDark);
-  }
+  };
 
   return (
     <div>
@@ -57,7 +57,9 @@ const MessageArea = (props) => {
           checked={props.isDarkMode}
           onChange={switchMode}
         />
-        {props.isDarkMode ? "ライトモードに切り替える" : "ダークモードに切り替える"}
+        {props.isDarkMode
+          ? "ライトモードに切り替える"
+          : "ダークモードに切り替える"}
       </label>
       <SendText
         messages={messages}

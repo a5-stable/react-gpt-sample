@@ -7,7 +7,7 @@ const SendText = (props) => {
         onChange={(e) => props.onChange(e)}
         size="500"
         row="5"
-        style={{width: '500px', height: '100px'}}
+        style={{ width: "500px", height: "100px" }}
       ></textarea>
       <button className="send-btn" onClick={() => props.onClickSend()}>
         送信
