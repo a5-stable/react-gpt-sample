@@ -28,11 +28,14 @@ const MessageArea = (props) => {
         messages: messages,
       });
       setMessages([...messages, completion.data.choices[0].message]);
+      setInputValue("");
       setMsgValue("");
       setIsCommunicating(false);
     } catch (error) {
       setMsgValue("データの取得に失敗しました。");
       setIsCommunicating(false);
+      // 取得に失敗した際の最終送信を削除
+      messages.splice(messages.length - 1, 1);
     }
   };
 
@@ -75,7 +78,6 @@ const MessageArea = (props) => {
       }
 
       setMessages(tmpMessages);
-      setInputValue("");
       setMsgValue("通信中……");
       setIsCommunicating(true);
       comToGPTWithTimeout(tmpMessages);
