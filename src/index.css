@@ -3,11 +3,12 @@ body,
 .root,
 .chat {
   height: 100%;
+  width: 100%;
 }
 
 body {
   font: 15px;
-  margin: 20px;
+  margin: 0px;
 }
 
 /* 日本語用フォント */
@@ -17,5 +18,25 @@ body {
 
 /* 英数字用フォント */
 body {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 改行用 */
+.line-break {
+  white-space: pre-wrap;
+}
+
+.Message {
+  margin: 0px 40px;
+}
+
+.SendText {
+  margin: 40px 0px 0px 40px;
+}
+
+.send-btn,
+.clr-btn,
+.reset-btn {
+  margin-left: 10px;
 }

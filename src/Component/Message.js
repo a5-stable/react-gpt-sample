@@ -8,16 +8,16 @@ const Message = (props) => {
     .reverse()
     .forEach((message) => {
       if (message.role !== "system" && message.content) {
-        const messageText = <ReactMarkdown children={message.content} />;
+        const messageText = <ReactMarkdown className="line-break">{message.content}</ReactMarkdown>;
         messageList.push(
           <li key={message.id}>
-            {message.role}: {messageText}
+            {message.role}{messageText}
           </li>
         );
       }
     });
 
-  return <ul>{messageList}</ul>;
+  return <div className="Message"><ul>{messageList}</ul></div>;
 };
 
 export default Message;

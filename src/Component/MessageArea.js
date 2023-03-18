@@ -14,7 +14,7 @@ const MessageArea = (props) => {
   const [inputValue, setInputValue] = useState("");
 
   const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);
 
@@ -23,15 +23,19 @@ const MessageArea = (props) => {
       var tmpMessages = messages.slice();
       tmpMessages.push({ role: "user", content: inputValue });
       setMessages(tmpMessages);
+      setInputValue("");
       (async () => {
         const completion = await openai.createChatCompletion({
           model: "gpt-3.5-turbo",
           messages: tmpMessages,
         });
         setMessages([...tmpMessages, completion.data.choices[0].message]);
-        setInputValue("");
       })();
     }
+  };
+
+  const clearMessages = () => {
+    setInputValue("");
   };
 
   const resetMessages = () => {
@@ -55,16 +59,14 @@ const MessageArea = (props) => {
   };
 
   return (
-    <div>
+    <div className="MessageArea">
       <label>
         <input
           type="checkbox"
           checked={props.isDarkMode}
           onChange={switchMode}
         />
-        {props.isDarkMode
-          ? "ライトモードに切り替える"
-          : "ダークモードに切り替える"}
+        {"ダークモードON"}
       </label>
       <SendText
         messages={messages}
@@ -72,6 +74,7 @@ const MessageArea = (props) => {
         onClickSend={() => {
           sendMessages();
         }}
+        onClickClear={() => clearMessages()}
         onClickReset={() => resetMessages()}
         onChange={(e) => handleChange(e)}
       />
