@@ -132,7 +132,7 @@ const MessageArea = (props) => {
         onClickReset={() => resetHistory()}
         isCommunicating={isCommunicating}
       />
-      <Message messages={messages} />
+      <Message messages={messages} isDarkMode={props.isDarkMode} />
     </div>
   );
 };
