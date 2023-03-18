@@ -17,7 +17,7 @@ const SendText = (props) => {
   // ボタンクリック時
   const handleButtonClick = () => {
     var textarea = document.getElementById("send-textarea");
-    textarea.style.height = "44px"; // テキストエリアの高さを50pxに変更
+    textarea.style.height = "44px"; // テキストエリアの高さを44pxに変更
     textAreaRef.current.focus(); // テキストエリアにフォーカスを当てる
   };
 
