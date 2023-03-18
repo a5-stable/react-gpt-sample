@@ -32,7 +32,7 @@ const SendText = (props) => {
 
   return (
     <div className="SendText">
-      <div className="msgText">※会話の履歴は10往復まで保存されます。</div>
+      <div className="msgText">※会話の履歴は10往復まで保存</div>
       <textarea
         id="send-textarea"
         ref={textAreaRef}
