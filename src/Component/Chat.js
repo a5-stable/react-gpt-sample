@@ -14,8 +14,13 @@ const Chat = () => {
   };
 
   return (
-    <div style={isDarkMode ? darkModeStyle : lightModeStyle} className="chat">
-      <MessageArea isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+    <div 
+      style={Object.assign({}, isDarkMode ? darkModeStyle : lightModeStyle, {overflow: 'scroll'})}
+      className="chat">
+      <MessageArea
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+      />
     </div>
   );
 };
