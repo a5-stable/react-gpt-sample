@@ -3,9 +3,10 @@ import React, { useState } from "react";
 const SendText = (props) => {
   const [textareaHeight, setTextareaHeight] = useState("30px");
 
-  // テキストエリアのサイズ調整
+  // テキストエリア変化
   const handleTextareaChange = (event) => {
-    // textarea の行数を計算する
+    props.setInputValue(event.target.value);
+    // textarea の行数を計算しサイズを自動調整
     event.target.style.height = "30px";
     setTextareaHeight(`${event.target.scrollHeight}px`);
   };
@@ -17,16 +18,16 @@ const SendText = (props) => {
 
   return (
     <div className="SendText">
+      <div className="msgText">※会話の履歴は10往復まで保存されます。</div>
       <textarea
         type="text"
         value={props.inputValue}
         onChange={(e) => {
-          props.onChange(e);
           handleTextareaChange(e);
         }}
-        size="500"
-        row="100"
-        style={{ width: "500px", height: textareaHeight }}
+        style={{ height: textareaHeight }}
+        className="txtarea-send"
+        disabled={props.isCommunicating}
       ></textarea>
       <div>
         <button
@@ -35,6 +36,7 @@ const SendText = (props) => {
             props.onClickSend();
             handleButtonClick();
           }}
+          disabled={props.isCommunicating}
         >
           送信
         </button>
@@ -44,6 +46,7 @@ const SendText = (props) => {
             props.onClickClear();
             handleButtonClick();
           }}
+          disabled={props.isCommunicating}
         >
           テキストクリア
         </button>
@@ -53,9 +56,16 @@ const SendText = (props) => {
             props.onClickReset();
             handleButtonClick();
           }}
+          disabled={props.isCommunicating}
         >
           会話リセット
         </button>
+      </div>
+      <div
+        className="msgText"
+        style={{ color: props.isCommunicating ? "#50D060" : "red" }}
+      >
+        {props.msgValue !== "" ? props.msgValue : "　"}
       </div>
     </div>
   );
