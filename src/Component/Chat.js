@@ -13,10 +13,8 @@ const Chat = () => {
     color: "black",
   };
 
-  const bgStyle = isDarkMode ? darkModeStyle : lightModeStyle;
-
   return (
-    <div style={{ height: "100%", ...bgStyle }} className="chat">
+    <div style={isDarkMode ? darkModeStyle : lightModeStyle} className="chat">
       <div className="chat-message-area">
         <MessageArea isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       </div>

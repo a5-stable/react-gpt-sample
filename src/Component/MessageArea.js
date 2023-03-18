@@ -7,7 +7,8 @@ const MessageArea = (props) => {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content: "You are a helpful assistant.",
+      content:
+        "サポートアシスタントのように振る舞ってください。基本的に日本語で返答してください。",
     },
   ]);
   const [inputValue, setInputValue] = useState("");
@@ -35,7 +36,11 @@ const MessageArea = (props) => {
 
   const resetMessages = () => {
     var defaultMessage = [
-      { role: "system", content: "You are a helpful assistant." },
+      {
+        role: "system",
+        content:
+          "サポートアシスタントのように振る舞ってください。基本的に日本語で返答してください。",
+      },
     ];
     setMessages(defaultMessage);
   };

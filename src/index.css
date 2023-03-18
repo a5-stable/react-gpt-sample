@@ -1,0 +1,21 @@
+html,
+body,
+.root,
+.chat {
+  height: 100%;
+}
+
+body {
+  font: 15px;
+  margin: 20px;
+}
+
+/* 日本語用フォント */
+body {
+  font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+/* 英数字用フォント */
+body {
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
