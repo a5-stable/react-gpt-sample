@@ -1,7 +1,6 @@
 html,
 body,
-.root,
-.chat {
+.root {
   height: 100%;
   width: 100%;
 }
@@ -22,32 +21,27 @@ body {
     "Helvetica Neue", Arial, sans-serif;
 }
 
-/* 改行用 */
-.line-break {
-  white-space: pre-wrap;
+/* 色設定と長いURLが画面からはみ出さないようにする設定 */
+a {
+  color: #2c9ddb;
+  display: inline-block;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
-.Message {
-  margin: 0px 40px 0px 20px;
-}
+/* 未訪問リンク */
+/* a:link {
+} */
 
-.SendText {
-  margin: 30px 40px 0px 40px;
-}
+/* 訪問済みリンク */
+/* a:visited {
+} */
 
-.send-btn,
-.clr-btn,
-.reset-btn {
-  margin: 5px 0px 5px 10px;
+/* マウスカーソルを乗せたリンク */
+a:hover {
+  color: #1caa9c;
 }
-
-.txtarea-send {
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 20px;
-}
-
-.msgText {
-  font-weight: bold;
-  margin: 5px;
+/* 選択したリンク */
+a:active {
+  color: gray;
 }

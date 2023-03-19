@@ -12,19 +12,7 @@ const customComponents = {
   // props.children にURLが含まれているので、これをリンクのテキストとして表示する
   // スタイルを変更する場合は、この Anchor コンポーネントのスタイルを指定する
   a: ({ children, ...props }) => (
-    <a
-      // 色設定と長いURLが画面からはみ出さないようにする設定
-      style={{
-        color: "#20A6CB",
-        display: "inline-block",
-        wordWrap: "break-word",
-        maxWidth: "100%",
-      }}
-      {...props}
-      href={props.href}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a {...props} href={props.href} target="_blank" rel="noopener noreferrer">
       {children}
     </a>
   ),

@@ -114,7 +114,7 @@ const MessageArea = (props) => {
 
   return (
     <div className="MessageArea">
-      <label>
+      <label className="isdark-checkbox">
         <input
           type="checkbox"
           checked={props.isDarkMode}

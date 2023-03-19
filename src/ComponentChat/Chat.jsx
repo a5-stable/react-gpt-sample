@@ -1,5 +1,6 @@
 import MessageArea from "./MessageArea";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Chat = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -24,6 +25,13 @@ const Chat = () => {
       })}
       className="chat"
     >
+      <div className="chat-header">
+        <h2 className="chat-title">BeightlGPT</h2>
+        <div className="myLink">
+          <Link to="/Home">Homeへ戻る</Link>
+        </div>
+      </div>
+
       <MessageArea
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
